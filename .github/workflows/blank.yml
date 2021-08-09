@@ -2,7 +2,7 @@ name: test
 
 on:
   pull_request:
-    types: [opened]
+    types: [closed]
   issue_comment:
     types: [created]
 
