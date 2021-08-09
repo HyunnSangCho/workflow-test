@@ -20,3 +20,4 @@ jobs:
       - run: |
           echo ${{ steps.check.outputs.triggered }}
           echo github.event.action
+          echo ${{ github.event.action }}
