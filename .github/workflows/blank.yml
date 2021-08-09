@@ -17,4 +17,7 @@ jobs:
           reaction: rocket
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-      - run: echo ${{ steps.check.outputs.triggered }}
+      - run: |
+          echo ${{ steps.check.outputs.triggered }}
+          echo github.event.action
+          echo ${{ github.event.action }}
