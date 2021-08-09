@@ -1,1 +1,33 @@
-::set-output name=image_tag::$(date +'%Y%m%d%H%M')-${GIT_SHA::10}
+name: test
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: '/start-new-deploy'
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - run: |
+          echo $ {{ steps.check.outputs.triggered }}
+          echo $ {{ github.event_name }}
+          echo $ {{ github.head_ref }}
+          echo $ {{ steps.checkout-branch.outputs.git_sha }}
+          echo $ {{ steps.checkout-branch.outputs.image_tag }}
+          echo $ {{ steps.checkout-branch.outputs.release_version }}
+          echo $ {{ GITHUB_EVENT_NAME }}
+          echo $ {{ github.event.inputs.branch }}
+          echo $ {{ git rev-parse HEAD }}
+          echo ::set-output name=git_sha::${GIT_SHA}
+          echo "::set-output name=git_sha::${GIT_SHA}"
+          echo ::set-output name=image_tag::$(date +'%Y%m%d%H%M')-${GIT_SHA::10}
+          echo "::set-output name=image_tag::$(date +'%Y%m%d%H%M')-${GIT_SHA::10}"
