@@ -1,5 +1,4 @@
-####################
-name: test-2
+name: test
 
 on:
   pull_request:
@@ -11,10 +10,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: khan/pull-request-comment-trigger@test
+      - uses: khan/pull-request-comment-trigger@master
         id: check
         with:
           trigger: '@deploy'
+          reaction: rocket
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       - run: 'echo Found it!'
