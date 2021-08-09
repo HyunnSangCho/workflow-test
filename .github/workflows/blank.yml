@@ -24,7 +24,6 @@ jobs:
           echo ${{ steps.checkout-branch.outputs.git_sha }}
           echo ${{ steps.checkout-branch.outputs.image_tag }}
           echo ${{ steps.checkout-branch.outputs.release_version }}
-          echo ${{ GITHUB_EVENT_NAME }}
           echo ${{ github.event.inputs.branch }}
           echo ${{ git rev-parse HEAD }}
           echo ::set-output name=git_sha::${GIT_SHA}
