@@ -20,8 +20,24 @@ env:
   AWS_REGION: ap-northeast-2
 
 jobs:
+#  set-dev-outputs:
+#    if: ${{ github.event.label.name == 'pesca' }}
+#    name: env-output
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Set Dev True
+#        run: |
+#          echo "::set-output name=dev::$(echo true)"
+#  set-stage-outputs:
+#    if: ${{ github.ref == ‘refs/heads/main’ }}
+#    name: env-output
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Set Stage True
+#        run: |
+#          echo "::set-output name=Stage::$(echo true)"
   get-image-tag:
-    if: ${{ github.event.label.name == 'pesca' }}
+    if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == ‘refs/heads/main’ }}
     name: get-tag
     runs-on: ubuntu-latest
     outputs:

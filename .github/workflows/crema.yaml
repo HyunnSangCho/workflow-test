@@ -21,7 +21,7 @@ env:
 
 jobs:
   get-image-tag:
-    if: ${{ github.event.label.name == 'crema' }}
+    if: ${{ github.event.label.name == 'crema' }} && ${{ github.ref == ‘refs/heads/main’ }}
     name: get-tag
     runs-on: ubuntu-latest
     outputs:
