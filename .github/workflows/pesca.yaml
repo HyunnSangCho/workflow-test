@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECS
+name: Deploy to Pesca Amazon ECS
 
 # It will execute only When the branch name is main and pesca-backend code is changed.
 # Also when PR review requested or the label pesca is registered.
@@ -21,7 +21,7 @@ env:
 
 jobs:
   get-image-tag:
-    if: ${{ github.event.label.name == 'pesca' }}
+    if: ${{ github.event.label.name == 'pesca' }} || ${{ github.ref == 'refs/heads/main' }}
     name: get-tag
     runs-on: ubuntu-latest
     outputs:

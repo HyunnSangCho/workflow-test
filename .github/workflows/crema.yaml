@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECS
+name: Deploy to Crema Amazon ECS
 
 # It will execute only When the branch name is main and crema-backend code is changed.
 # Also when PR review requested or the label crema is registered.
