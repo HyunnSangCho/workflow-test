@@ -11,6 +11,8 @@ on:
   pull_request:
     types:
       - labeled
+    paths:
+      - 'apps/crema-backend/**'
 
 # Set env
 env:
