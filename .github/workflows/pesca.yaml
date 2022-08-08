@@ -1,13 +1,13 @@
 name: Deploy to Amazon ECS
 
-# It will execute only When the branch name is main and crema-backend code is changed.
-# Also when PR review requested or the label crema is registered.
+# It will execute only When the branch name is main and pesca-backend code is changed.
+# Also when PR review requested or the label pesca is registered.
 on:
   push:
     branches:
       - main
     paths:
-      - 'apps/crema-backend/**'
+      - 'apps/pesca-backend/**'
   pull_request:
     types:
       - labeled
@@ -15,17 +15,17 @@ on:
 # Set env
 env:
   # If the branch name is main, NODE_ENV is stage. if not, NODE_ENV is dev.
-  APP_NAME: crema
+  APP_NAME: pesca
   NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'stage' || 'dev' }}
   AWS_REGION: ap-northeast-2
 
 jobs:
   get-image-tag:
-    if: ${{ github.event.label.name == 'crema' }}
+    if: ${{ github.event.label.name == 'pesca' }}
     name: get-tag
     runs-on: ubuntu-latest
     outputs:
-      APP_NAME: crema
+      APP_NAME: pesca
       image_tag: ${{ steps.hash-commit.outputs.sha_short }}
       ECR_REPOSITORY: ${{ env.APP_NAME }}-ecr-${{ env.NODE_ENV }}-backend
       ECS_SERVICE: ${{ env.APP_NAME }}-ecs-${{ env.NODE_ENV }}-backend
