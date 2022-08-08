@@ -37,7 +37,7 @@ jobs:
 #        run: |
 #          echo "::set-output name=Stage::$(echo true)"
   get-image-tag:
-    if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == ‘refs/heads/main’ }}
+    if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == 'refs/heads/main' }}
     name: get-tag
     runs-on: ubuntu-latest
     outputs:
