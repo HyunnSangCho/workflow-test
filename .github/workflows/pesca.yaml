@@ -8,11 +8,13 @@ on:
       - main
     paths:
       - 'apps/pesca-backend/**'
+      - 'libs/**'
   pull_request:
     types:
       - labeled
     paths:
       - 'apps/pesca-backend/**'
+      -  'libs/**'
 
 # Set env
 env:
@@ -57,3 +59,6 @@ jobs:
       - name: get-sha
         id: hash-commit
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: get-sha
+        run: cat apps/pesca-backend/test.json
