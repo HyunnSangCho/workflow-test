@@ -8,57 +8,32 @@ on:
       - main
     paths:
       - 'apps/pesca-backend/**'
-      - 'libs/**'
   pull_request:
     types:
       - labeled
     paths:
       - 'apps/pesca-backend/**'
-      -  'libs/**'
-
-# Set env
-env:
-  # If the branch name is main, NODE_ENV is stage. if not, NODE_ENV is dev.
-  APP_NAME: pesca
-  NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'stage' || 'dev' }}
-  AWS_REGION: ap-northeast-2
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        type: choice
+        required: false
+        default: 'dev'
+        options:
+          - dev
+          - stage
+          - prod
 
 jobs:
-#  set-dev-outputs:
-#    if: ${{ github.event.label.name == 'pesca' }}
-#    name: env-output
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Set Dev True
-#        run: |
-#          echo "::set-output name=dev::$(echo true)"
-#  set-stage-outputs:
-#    if: ${{ github.ref == ‘refs/heads/main’ }}
-#    name: env-output
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Set Stage True
-#        run: |
-#          echo "::set-output name=Stage::$(echo true)"
-  get-image-tag:
+  pesca-run:
     if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == 'refs/heads/main' }}
-    name: get-tag
+    name: pesca-run
     runs-on: ubuntu-latest
-    outputs:
-      APP_NAME: pesca
-      image_tag: ${{ steps.hash-commit.outputs.sha_short }}
-      ECR_REPOSITORY: ${{ env.APP_NAME }}-ecr-${{ env.NODE_ENV }}-backend
-      ECS_SERVICE: ${{ env.APP_NAME }}-ecs-${{ env.NODE_ENV }}-backend
-      ECS_CLUSTER: ${{ env.APP_NAME }}-ecs-${{ env.NODE_ENV }}-cluster
     steps:
       # This step fetches code from github repository.
       - name: checkout-code
         uses: actions/checkout@v2
 
-      # This step gets the hash from the commit and uses it for the docker image tag.
-      - name: get-sha
-        id: hash-commit
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-
-      - name: get-sha
+      - name: pesca cat
         run: cat apps/pesca-backend/test.json
