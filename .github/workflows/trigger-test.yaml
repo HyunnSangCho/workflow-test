@@ -43,5 +43,4 @@ jobs:
         run: echo "pesca"
 
       - name: get-sha
-        id: hash-commit
         run: cat test/test.json
