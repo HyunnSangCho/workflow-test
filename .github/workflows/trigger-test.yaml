@@ -1,0 +1,38 @@
+name: trigger-test
+
+# It will execute only When the branch name is main and pesca-backend code is changed.
+# Also when PR review requested or the label pesca is registered.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/pesca-backend/**'
+      - 'libs/**'
+  pull_request:
+    types:
+      - labeled
+    paths:
+      - 'apps/pesca-backend/**'
+      - 'libs/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: false
+
+jobs:
+  get-image-tag:
+    if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == 'refs/heads/main' }}
+    name: get-tag
+    runs-on: ubuntu-latest
+    steps:
+      # This step fetches code from github repository.
+      - name: checkout-code
+        uses: actions/checkout@v2
+
+      # This step gets the hash from the commit and uses it for the docker image tag.
+      - name: get-sha
+        id: hash-commit
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
