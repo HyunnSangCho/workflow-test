@@ -17,10 +17,10 @@ on:
       - 'libs/**'
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment to run tests against'
+      manually_trigger:
+        description: 'Manually Trigger the Github Actions'
         type: boolean
-        required: false
+        required: true
 
 jobs:
   crema-run:

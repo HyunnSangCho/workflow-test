@@ -15,16 +15,10 @@ on:
       - 'apps/pesca-backend/**'
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment to run tests against'
-        type: choice
-        required: false
-        default: 'dev'
-        options:
-          - dev
-          - stage
-          - prod
-
+      manually_trigger:
+        description: 'Manually Trigger the Github Actions'
+        type: boolean
+        required: true
 jobs:
   pesca-run:
     if: ${{ github.event.label.name == 'pesca' }} && ${{ github.ref == 'refs/heads/main' }}
