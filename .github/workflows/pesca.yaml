@@ -37,3 +37,6 @@ jobs:
 
       - name: pesca cat
         run: cat apps/pesca-backend/test.json
+
+      - name: libs cat
+        run: cat libs/test.json

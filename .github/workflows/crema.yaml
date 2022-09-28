@@ -8,11 +8,13 @@ on:
       - main
     paths:
       - 'apps/crema-backend/**'
+      - 'libs/**'
   pull_request:
     types:
       - labeled
     paths:
       - 'apps/crema-backend/**'
+      - 'libs/**'
   workflow_dispatch:
     inputs:
       environment:
@@ -24,13 +26,6 @@ on:
           - dev
           - stage
           - prod
-
-# Set env
-env:
-  # If the branch name is main, NODE_ENV is stage. if not, NODE_ENV is dev.
-  APP_NAME: crema
-  NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'stage' || 'dev' }}
-  AWS_REGION: ap-northeast-2
 
 jobs:
   crema-run:
@@ -45,3 +40,6 @@ jobs:
       # This step gets the hash from the commit and uses it for the docker image tag.
       - name: crema cat
         run: cat apps/crema-backend/test.json
+
+      - name: libs cat
+        run: cat libs/test.json
