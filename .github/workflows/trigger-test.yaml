@@ -40,4 +40,17 @@ jobs:
       # This step gets the hash from the commit and uses it for the docker image tag.
       - name: get-sha
         id: hash-commit
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        run: echo "pesca"
+  crema-test:
+    if: ${{ github.event.label.name == 'crema' }} && ${{ github.ref == 'refs/heads/main' }}
+    name: get-tag
+    runs-on: ubuntu-latest
+    steps:
+      # This step fetches code from github repository.
+      - name: checkout-code
+        uses: actions/checkout@v2
+
+      # This step gets the hash from the commit and uses it for the docker image tag.
+      - name: get-sha
+        id: hash-commit
+        run: echo "crema"
