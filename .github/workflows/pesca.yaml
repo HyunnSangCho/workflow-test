@@ -8,11 +8,13 @@ on:
       - main
     paths:
       - 'apps/pesca-backend/**'
+      - 'libs/**'
   pull_request:
     types:
       - labeled
     paths:
       - 'apps/pesca-backend/**'
+      -  'libs/**'
 
 # Set env
 env:

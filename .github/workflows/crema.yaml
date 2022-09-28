@@ -8,11 +8,13 @@ on:
       - main
     paths:
       - 'apps/crema-backend/**'
+      - 'libs/**'
   pull_request:
     types:
       - labeled
     paths:
       - 'apps/crema-backend/**'
+      - 'libs/**'
 
 # Set env
 env:
