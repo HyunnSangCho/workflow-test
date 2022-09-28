@@ -19,13 +19,8 @@ on:
     inputs:
       environment:
         description: 'Environment to run tests against'
-        type: choice
+        type: boolean
         required: false
-        default: 'dev'
-        options:
-          - dev
-          - stage
-          - prod
 
 jobs:
   crema-run:
