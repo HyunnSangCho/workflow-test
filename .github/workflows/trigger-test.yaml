@@ -19,8 +19,13 @@ on:
     inputs:
       environment:
         description: 'Environment to run tests against'
-        type: environment
+        type: choice
         required: false
+        default: 'dev'
+        options:
+          - dev
+          - stage
+          - prod
 
 jobs:
   get-image-tag:
