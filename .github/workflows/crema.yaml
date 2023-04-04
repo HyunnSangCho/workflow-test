@@ -50,4 +50,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
-            **🪄[crema](https://backend-${{env.NODE_ENV}}.{{env.APP_NAME}}.jelato.world/origin) IS READY FOR YOU! 🪄**
+            **🪄[crema](https://backend-${env.NODE_ENV}.{env.APP_NAME}.jelato.world/origin) IS READY FOR YOU! 🪄**
