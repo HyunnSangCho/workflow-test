@@ -50,4 +50,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
-            **🪄[crema](https://github.com/jelatodev/jelato-backend/pull/${{ github.event.issue.number }}) IS READY FOR YOU! 🪄**
+            **🪄[crema](https://github.com/jelatodev/jelato-backend/pull/${{ github.event.pull_request.number }}) IS READY FOR YOU! 🪄**
