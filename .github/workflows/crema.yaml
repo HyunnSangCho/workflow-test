@@ -22,6 +22,12 @@ on:
         type: boolean
         required: true
 
+env:
+  # If the branch name is main, NODE_ENV is stage. if not, NODE_ENV is dev.
+  APP_NAME: crema
+  NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'stage' || 'dev' }}
+  AWS_REGION: ap-northeast-2
+
 jobs:
   crema-run:
     if: ${{ github.event.label.name == 'crema' }} && ${{ github.ref == 'refs/heads/main' }}
@@ -38,3 +44,10 @@ jobs:
 
       - name: libs cat
         run: cat libs/test.json
+        
+      - uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            **🪄[crema](https://backend-${{ env.NODE_ENV }}.{{ env.APP_NAME }}.jelato.world/origin) IS READY FOR YOU! 🪄**
