@@ -1,10 +1,9 @@
 on:
   workflow_call:
-    inputs:
-      slack-webhook-url:
+    secrets:
+      SLACK_WEBHOOK_URL:  # 이 이름은 호출하는 워크플로우에서 사용될 이름입니다.
         required: true
-        type: string
-        
+
 jobs:
   mention-to-slack:
     runs-on: ubuntu-latest
@@ -13,6 +12,6 @@ jobs:
         uses: abeyuya/actions-mention-to-slack@latest
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          slack-webhook-url: ${{ inputs.slack-webhook-url }}
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}  # 호출할 때 정의된 비밀의 이름을 사용합니다.
           icon-url: https://img.icons8.com/color/256/000000/github-2.png
           configuration-path: .github/mention-to-slack.yml
