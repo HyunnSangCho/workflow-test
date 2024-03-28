@@ -1,5 +1,8 @@
 on:
   workflow_call:
+    secrets:
+      SLACK_MENTION_WEBHOOK_URL: 
+        required: true
 
 jobs:
   mention-to-slack:
