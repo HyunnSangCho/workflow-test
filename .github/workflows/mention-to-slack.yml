@@ -1,14 +1,6 @@
 on:
   workflow_call:
-    inputs:
-      slack-webhook-url:
-        required: true
-        type: string
-      run-id:
-        required: true
-        type: string
-      # 필요한 추가 입력들을 여기 정의할 수 있습니다.
-
+  
 jobs:
   mention-to-slack:
     runs-on: ubuntu-latest
@@ -17,8 +9,6 @@ jobs:
         uses: abeyuya/actions-mention-to-slack@latest
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          slack-webhook-url: ${{ inputs.slack-webhook-url }}
+          slack-webhook-url: ${{ secrets.SLACK_MENTION_WEBHOOK_URL }}
           icon-url: https://img.icons8.com/color/256/000000/github-2.png
-          bot-name: "Send Mention from jelatodev/pesca-issue"
-          run-id: ${{ inputs.run-id }}
           configuration-path: .github/mention-to-slack.yml
