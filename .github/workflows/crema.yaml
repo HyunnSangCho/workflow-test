@@ -6,15 +6,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'apps/crema-backend/**'
-      - 'libs/**'
-  pull_request:
-    types:
-      - labeled
-    paths:
-      - 'apps/crema-backend/**'
-      - 'libs/**'
   workflow_dispatch:
     inputs:
       manually_trigger:
@@ -22,32 +13,14 @@ on:
         type: boolean
         required: true
 
-env:
-  # If the branch name is main, NODE_ENV is stage. if not, NODE_ENV is dev.
-  APP_NAME: crema
-  NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'stage' || 'dev' }}
-  AWS_REGION: ap-northeast-2
-
 jobs:
-  crema-run:
-    if: ${{ github.event.label.name == 'crema' }} && ${{ github.ref == 'refs/heads/main' }}
-    name: crema-run
-    runs-on: ubuntu-latest
+  prepare:
+    name: prepare
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, self-hosted]
+      fail-fast: false
     steps:
-      # This step fetches code from github repository.
-      - name: checkout-code
+      - name: Checkout code
         uses: actions/checkout@v2
-
-      # This step gets the hash from the commit and uses it for the docker image tag.
-      - name: crema cat
-        run: cat apps/crema-backend/test.json
-
-      - name: libs cat
-        run: cat libs/test.json
-        
-      - uses: mshick/add-pr-comment@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          message: |
-            **🪄[crema](https://github.com/jelatodev/jelato-backend/pull/${{ github.event.pull_request.number }}) IS READY FOR YOU! 🪄**
